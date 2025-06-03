@@ -4,7 +4,7 @@ resource "aws_cloudwatch_metric_alarm" "percent" {
   alarm_name        = format("%s-%s-percent",var.prefix,each.key)
   alarm_description = format("%s rate for %s",each.key,var.description)
 
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  comparison_operator       = var.metrics[each.key].comparison_operator
   evaluation_periods        = try(var.evaluation_periods[each.key],var.default_evaluation_periods)
   threshold                 = try(var.threshold_percentage[each.key],var.default_threshold_percentage)
 
@@ -61,7 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "count" {
   alarm_name        = format("%s-%s-count",var.prefix,each.key)
   alarm_description = format("%s count for %s",each.key,var.description)
 
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  comparison_operator       = var.metrics[each.key].comparison_operator
   evaluation_periods        = try(var.evaluation_periods[each.key],var.default_evaluation_periods)
   threshold                 = try(var.threshold_count[each.key],var.default_threshold_count)
 
