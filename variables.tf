@@ -20,10 +20,19 @@ variable "metrics" {
       "percentage_stat" = "Sum"
       "namespace" = "AWS/ApplicationELB" 
       "treat_missing_data" = "notBreaching"
-    }    
+    }   
+    "unhealthyHost" = {
+      "metric_name" = "UnHealthyHostCount"
+      "stat" = "Average"
+      "unit" = "Count"
+      "comparison_operator" = "GreaterThanOrEqualToThreshold"
+      "namespace" = "AWS/ApplicationELB" 
+      "treat_missing_data" = "notBreaching"
+    }         
   }
 }
 
+variable "create_unhealthyHost_alarm" { default = false }
 variable "create_percentage_alarms" { default = ["5XX","4XX"] }
 variable "create_count_alarms" { default = ["5XX","4XX"] }
 
